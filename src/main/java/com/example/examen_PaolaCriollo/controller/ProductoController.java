@@ -1,8 +1,6 @@
 package com.example.examen_PaolaCriollo.controller;
 
-import com.example.examen_PaolaCriollo.model.Cliente;
 import com.example.examen_PaolaCriollo.model.Producto;
-import com.example.examen_PaolaCriollo.service.ClienteServiceImpl;
 import com.example.examen_PaolaCriollo.service.ProductoServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,41 +12,43 @@ import java.util.List;
 @RestController
 @RequestMapping("/producto")
 public class ProductoController {
-    @Autowired
-    ProductoServiceImpl productoService;
+
+   // @Autowired
+    ProductoServiceImpl productoS;
 
     @GetMapping("/listar")
     public ResponseEntity<List<Producto>> listar() {
-        return new ResponseEntity<>(productoService.findByAll(), HttpStatus.OK);
+        return new ResponseEntity<>(productoS.findByAll(), HttpStatus.OK);
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Producto> crear(@RequestBody Producto c) {
+    public ResponseEntity<Producto> crearProducto(@RequestBody Producto p) {
 
-        return new ResponseEntity<>(productoService.crear(c), HttpStatus.CREATED);
+        return new ResponseEntity<>(productoS.crear(p), HttpStatus.CREATED);
     }
 
     @DeleteMapping("/eliminar/{id}")
-    public ResponseEntity<Producto> eliminar(@PathVariable Long id) {
-        productoService.delete(id);
+    public ResponseEntity<Producto> eliminarProducto(@PathVariable Long id) {
+        productoS.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PutMapping("/actualizar/{id}")
-    public ResponseEntity<Producto> actualizar(@PathVariable Long id, @RequestBody Producto c) {
-        Producto producto = productoService.findById(id);
+    public ResponseEntity<Producto> actualizarProducto(@PathVariable Long id, @RequestBody Producto p) {
+        Producto producto = productoS.findById(id);
         if (producto == null) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } else {
             try {
-                producto.setCod_producto(c.getCod_producto());
-                producto.setCantidad(c.getCantidad());
-                producto.setPrecio(c.getPrecio());
+                producto.setCod_producto(p.getCod_producto());
+                producto.setCantidad(p.getCantidad());
+                producto.setPrecio(p.getPrecio());
 
-                return new ResponseEntity<>(productoService.crear(c), HttpStatus.CREATED);
+                return new ResponseEntity<>(productoS.crear(p), HttpStatus.CREATED);
             } catch (Exception e) {
                 return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
             }
         }
     }
+
 }

@@ -1,8 +1,6 @@
 package com.example.examen_PaolaCriollo.service;
 
-import com.example.examen_PaolaCriollo.model.Cliente;
 import com.example.examen_PaolaCriollo.model.Producto;
-import com.example.examen_PaolaCriollo.repository.ClienteRepository;
 import com.example.examen_PaolaCriollo.repository.ProductoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
